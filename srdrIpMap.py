@@ -3,6 +3,7 @@
 # getopt code from: http://www.tutorialspoint.com/python/python_command_line_arguments.htm
 
 import sys, getopt
+import io
 import GeoIP
 
 def main(argv):
@@ -35,7 +36,7 @@ def processFile(inputfile, outputfile=False):
 
   # Output file is provided: we write to it.
   if outputfile:
-    with open(inputfile, 'r', encoding='utf-8') as infile, open(outputfile, 'w') as outfile:
+    with io.open(inputfile, 'r', encoding='utf-8') as infile, io.open(outputfile, 'w') as outfile:
       for line in infile:
         line = line.strip()
         line = "%s,%s\n" % (line, gi.country_code_by_addr(line))
@@ -43,7 +44,7 @@ def processFile(inputfile, outputfile=False):
 
   # No output file is provided: we write to console.
   else:
-    with open(inputfile, 'r', encoding='utf-8') as infile:
+    with io.open(inputfile, 'r', encoding='utf-8') as infile:
       for line in infile:
         line = line.strip()
         print("%s: %s" % (line, gi.country_code_by_addr(line)))
